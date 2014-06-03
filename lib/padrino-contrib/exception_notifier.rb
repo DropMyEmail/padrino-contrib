@@ -49,12 +49,12 @@ module Padrino
             body body
           end
           response.status = 500
-          content_type 'text/html', :charset => "utf-8"
+          content_type :html, charset: 'utf-8'
           render settings.exceptions_page, :layout => settings.exceptions_layout, :views => settings.exceptions_views
         end
         app.not_found do
           response.status = 404
-          content_type 'text/html', :charset => "utf-8"
+          content_type :html, charset: 'utf-8'
           render settings.exceptions_page, :layout => settings.exceptions_layout, :views => settings.exceptions_views
         end
       end # self.registered
