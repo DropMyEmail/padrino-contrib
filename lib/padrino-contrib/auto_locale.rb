@@ -85,7 +85,11 @@ module Padrino
           return unless route.original_path.is_a?(String)
           excluded_paths = block.binding.eval('settings').locale_exclusive_paths
           return if AutoLocale.excluded_path?(route.original_path, excluded_paths)
-          route.path = "/:lang#{route.original_path}" unless route.original_path =~ /:lang/
+          if route.respond_to?(:path=)
+            route.path = "/:lang#{route.original_path}" unless route.original_path =~ /:lang/
+          else
+            route.path_for_generation = "/:lang#{route.original_path}" unless route.original_path =~ /:lang/
+          end
         end
 
         def self.excluded_path?(path, excluded_paths)
